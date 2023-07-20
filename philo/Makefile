@@ -3,7 +3,7 @@ SRCS=$(wildcard ./*.c)
 OBJS=$(SRCS:%.c=%.o)
 HEADER=./philo.h
 CC=cc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -lpthread
 
 all: $(NAME)
 

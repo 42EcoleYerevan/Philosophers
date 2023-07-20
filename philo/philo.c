@@ -1,52 +1,38 @@
 #include "philo.h"
-#include <stdio.h>
+#include <sys/_pthread/_pthread_t.h>
 
-char *ft_strchr(char c, char *str)
+void ft_print_info(t_info *info)
 {
-	if (!str)
-		return (NULL);
-	while (*str)
-	{
-		if (*str == c)
-			return (str);
-		str++;
-	}
+	printf("time_to_die: %d\n", info->time_to_die);
+	printf("time_to_sleep: %d\n", info->time_to_sleep);
+	printf("time_to_eat: %d\n", info->time_to_sleep);
+	printf("timestamp: %d\n", info->timestamp);
+	printf("number_of_philosophers: %d\n", info->number_of_philosophers);
+	printf("number_of_times_each_philosopher_must_eat: %d\n", \
+			info->number_of_times_each_philosopher_must_eat);
+}
+
+void *ft_thread(void *arg)
+{
 	return (NULL);
-}
-
-int ft_number_validator(char *str)
-{
-	char *valchars;
-
-	valchars = "-+1234567890";
-	while (*str)
-	{
-		if (ft_strchr(*str, valchars) == NULL)
-			return (1);
-		str++;
-	}
-	return (0);
-}
-
-int ft_validate_argv(int argc, char **argv)
-{
-	while (--argc > 0)
-	{
-		if (ft_number_validator(argv[argc]) == 1)
-			return (1);
-	}
-	return (0);
 }
 
 int main(int argc, char **argv)
 {
+	t_info *info;
+
 	if (argc < 5)
 		return (1);
 	else
 	{
-		if (ft_validate_argv(argc, argv) == 1)
+		if (is_valid_argv(argc, argv))
 			return (1);
-		printf("ok!\n");
+		info = ft_init_info(argv);
+		if (!info)
+			return (1);
+		ft_print_info(info);
+		pthread_t thread;
+		pthread_create(&thread, NULL, &ft_thread, info);
 	}
 	return (0);
 }
