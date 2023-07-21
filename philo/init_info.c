@@ -1,5 +1,24 @@
 #include "philo.h"
 
+pthread_mutex_t *ft_init_forks(t_info *info)
+{
+	int	indx_fork;
+
+	if (!info)
+		return (NULL);
+	info->forks = (pthread_mutex_t *)malloc( \
+			sizeof(pthread_mutex_t) * info->number_of_philosophers);
+	if (!info->forks)
+		return (NULL);
+	indx_fork = 0;
+	while (indx_fork < info->number_of_philosophers)
+	{
+		pthread_mutex_init(&info->forks[indx_fork], NULL);
+		indx_fork++;
+	}
+	return (info->forks);
+}
+
 t_info *ft_init_info(char **argv)
 {
 
@@ -22,5 +41,7 @@ t_info *ft_init_info(char **argv)
 			!info->time_to_eat || \
 			!info->time_to_sleep)
 		return (NULL);
+	pthread_mutex_init(&info->print, NULL);
+	ft_init_forks(info);
 	return (info);
 }
