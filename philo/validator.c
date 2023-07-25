@@ -1,4 +1,17 @@
 #include "philo.h"
+int ft_atoi(char *str);
+char *ft_strchr(char c, char *str);
+int ft_number_validator(char *str);
+
+int is_valid_argv(int argc, char **argv)
+{
+	while (--argc > 0)
+	{
+		if (ft_number_validator(argv[argc]) == 1)
+			return (1);
+	}
+	return (0);
+}
 
 int ft_atoi(char *str)
 {
@@ -42,16 +55,6 @@ int ft_number_validator(char *str)
 		if (ft_strchr(*str, valchars) == NULL)
 			return (1);
 		str++;
-	}
-	return (0);
-}
-
-int is_valid_argv(int argc, char **argv)
-{
-	while (--argc > 0)
-	{
-		if (ft_number_validator(argv[argc]) == 1)
-			return (1);
 	}
 	return (0);
 }

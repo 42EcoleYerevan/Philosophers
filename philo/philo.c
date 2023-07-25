@@ -1,16 +1,5 @@
 #include "philo.h"
 
-void ft_print_info(t_info *info)
-{
-	printf("time_to_die: %d\n", info->time_to_die);
-	printf("time_to_sleep: %d\n", info->time_to_sleep);
-	printf("time_to_eat: %d\n", info->time_to_sleep);
-	printf("timestamp: %d\n", info->timestamp);
-	printf("number_of_philosophers: %d\n", info->number_of_philosophers);
-	printf("number_of_times_each_philosopher_must_eat: %d\n", \
-			info->number_of_times_each_philosopher_must_eat);
-}
-
 int main(int argc, char **argv)
 {
 	t_info *info;
@@ -24,8 +13,9 @@ int main(int argc, char **argv)
 		info = ft_init_info(argv);
 		if (!info)
 			return (1);
-		if (!ft_init_philo(info))
+		if (!ft_init_philos(info))
 			return (1);
+		ft_run(info);
 	}
 	return (0);
 }
