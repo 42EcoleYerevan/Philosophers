@@ -21,6 +21,8 @@ t_info *ft_init_info(char **argv)
 			!info->time_to_sleep)
 		return (NULL);
 	info->print = 1;
+	info->die_status = 0;
+	pthread_mutex_init(&info->die_mutex, NULL);
 	pthread_mutex_init(&info->print_mutex, NULL);
 	pthread_mutex_init(&info->time_to_die_mutex, NULL);
 	pthread_mutex_init(&info->time_to_eat_mutex, NULL);

@@ -20,11 +20,13 @@ typedef struct s_info
 	int time_to_eat;
 	int time_to_sleep;
 	int number_of_times_each_philosopher_must_eat;
-	int	timestamp;
 	int print;
+	int	die_status;
+	unsigned long timestamp;
 	struct s_philo	*philos;
 	pthread_t		checker;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	die_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	time_to_eat_mutex;
 	pthread_mutex_t	time_to_die_mutex;
@@ -33,14 +35,12 @@ typedef struct s_info
 typedef struct s_philo
 {
 	int id;
-	int last_eat_time;
 	int num_ate;
-	int	die_status;
+	int	last_eat_time;
 	struct s_info *info;
 	pthread_t thread;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
-	pthread_mutex_t	die_mutex;
 	pthread_mutex_t num_ate_mutex;
 	pthread_mutex_t last_ate_mutex;
 } t_philo;
@@ -69,7 +69,7 @@ void	ft_run(t_info *info);
 void	ft_print_info(t_info *info);
 
 // utils
-int		ft_get_current_time();
+unsigned long	ft_get_current_time();
 void	ft_message(t_philo *philo, char *message);
 void	ft_usleep(int ms);
 
