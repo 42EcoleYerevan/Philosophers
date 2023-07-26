@@ -1,25 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 18:59:43 by agladkov          #+#    #+#             */
+/*   Updated: 2023/07/26 18:59:44 by agladkov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-void ft_destroy(t_info *info)
+int	main(int argc, char **argv)
 {
-	int i;
-
-	pthread_mutex_destroy(&info->print_mutex);
-	pthread_mutex_destroy(&info->time_to_die_mutex);
-	pthread_mutex_destroy(&info->time_to_eat_mutex);
-	pthread_mutex_destroy(&info->die_mutex);
-	i = 0;
-	while (i < info->number_of_philosophers)
-	{
-		pthread_mutex_destroy(&info->philos[i].last_ate_mutex);
-		pthread_mutex_destroy(&info->philos[i].num_ate_mutex);
-		i++;
-	}
-}
-
-int main(int argc, char **argv)
-{
-	t_info *info;
+	t_info	*info;
 
 	if (argc < 5)
 		return (1);

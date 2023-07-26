@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_info.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 18:54:13 by agladkov          #+#    #+#             */
+/*   Updated: 2023/07/26 18:54:15 by agladkov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 pthread_mutex_t	*ft_init_forks(t_info *info);
 int				ft_init_forks_loop(t_info *info);
 
-t_info *ft_init_info(char **argv)
+t_info	*ft_init_info(char **argv)
 {
-	t_info			*info;
-	
+	t_info	*info;
+
 	info = (t_info *)malloc(sizeof(t_info));
 	if (!info)
 		return (NULL);
@@ -31,11 +43,11 @@ t_info *ft_init_info(char **argv)
 	return (info);
 }
 
-pthread_mutex_t *ft_init_forks(t_info *info)
+pthread_mutex_t	*ft_init_forks(t_info *info)
 {
 	if (!info)
 		return (NULL);
-	info->forks = (pthread_mutex_t *)malloc( \
+	info->forks = (pthread_mutex_t *)malloc(\
 			sizeof(pthread_mutex_t) * info->number_of_philosophers);
 	if (!info->forks)
 		return (NULL);
