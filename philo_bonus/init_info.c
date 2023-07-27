@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:54:13 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 16:32:42 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:13:01 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_info	*ft_init_info(char **argv)
 			!info->time_to_sleep)
 		return (NULL);
 	info->timestamp = ft_get_current_time();
+	info->die_status = 0;
 	if (ft_init_sems(info))
 		return (NULL);
 	if (ft_init_childs(info))
@@ -48,12 +49,6 @@ int	ft_init_sems(t_info *info)
 	info->print_sem = sem_open("print_sem", 1);
 	info->time_to_die_sem = sem_open("time_to_die", 1);
 	info->time_to_die_sem = sem_open("time_to_eat", 1);
-	if (!info->forks || \
-		!info->die_sem || \
-		!info->print_sem || \
-		!info->time_to_die_sem || \
-		!info->time_to_eat_sem)
-		return (1);
 	return (0);
 }
 

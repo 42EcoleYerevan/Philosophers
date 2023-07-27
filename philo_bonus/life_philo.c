@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:44 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 17:37:23 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:16:08 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 
-void	ft_life_philo(void *philo)
+void	*ft_life_philo(void *philo)
 {
 	t_philo	*_philo;
 

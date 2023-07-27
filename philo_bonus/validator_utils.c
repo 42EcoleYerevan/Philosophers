@@ -1,33 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   validator_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 18:59:43 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 18:56:14 by agladkov         ###   ########.fr       */
+/*   Created: 2023/07/27 12:51:47 by agladkov          #+#    #+#             */
+/*   Updated: 2023/07/27 18:06:08 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	ft_atoi(char *str)
 {
-	t_info	*info;
+	unsigned int	out;
+	int				i;
 
-	if (argc < 5)
-		return (1);
-	else
+	if (!str)
+		return (0);
+	out = 0;
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	while (str[i])
 	{
-		if (is_valid_argv(argc, argv))
-			return (1);
-		info = ft_init_info(argv);
-		if (!info)
-			return (1);
-		if (!ft_init_philos(info))
-			return (1);
-		ft_run(info);
+		out = out * 10 + (str[i] - '0');
+		i++;
 	}
-	return (0);
+	if (out == 2147483648)
+		return (-1);
+	return (out);
+}
+
+char	*ft_strchr(char c, char *str)
+{
+	if (!str)
+		return (NULL);
+	while (*str)
+	{
+		if (*str == c)
+			return (str);
+		str++;
+	}
+	return (NULL);
 }

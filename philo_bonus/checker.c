@@ -6,33 +6,30 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:52:31 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 17:40:11 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:46:27 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int		ft_died_from_starvation(t_philo *philo);
-int		ft_eaten_enough(t_info *info);
+int		ft_eaten_enough(t_philo *philo);
 void	ft_set_die(t_info *info);
 
-void	*ft_checker(void *info)
+void	*ft_checker(void *philo)
 {
-	int		i;
-	t_info	*_info;
+	t_philo *_philo;
 
-	_info = (t_info *) info;
-	i = 0;
-	while (i < _info->number_of_philosophers)
+	_philo = (t_philo *)philo;
+	while (1)
 	{
-		if (ft_died_from_starvation(_info->philos + i) || \
-			ft_eaten_enough(info))
+		if (ft_died_from_starvation(_philo) || \
+			ft_eaten_enough(_philo))
+		{
+			ft_set_die(_philo->info);
 			return (NULL);
-		i++;
-		if (i == _info->number_of_philosophers - 1)
-			i = 0;
+		}
 	}
-	return (NULL);
 }
 
 int	ft_died_from_starvation(t_philo *philo)
@@ -50,27 +47,17 @@ int	ft_died_from_starvation(t_philo *philo)
 	return (0);
 }
 
-int	ft_eaten_enough(t_info *info)
+int	ft_eaten_enough(t_philo *philo)
 {
-	int	i;
 
-	i = 0;
-	if (!info->number_of_times_each_philosopher_must_eat)
-		return (0);
-	while (i < info->number_of_philosophers)
+	sem_wait(philo->num_ate_sem);
+	if (philo->num_ate < \
+			philo->info->number_of_times_each_philosopher_must_eat)
 	{
-		sem_wait(info->philos[i].num_ate_sem);
-		if (info->philos[i].num_ate < \
-				info->number_of_times_each_philosopher_must_eat)
-		{
-			sem_post(info->philos[i].num_ate_sem);
-			return (0);
-		}
-		sem_post(info->philos[i].num_ate_sem);
-		i++;
+		sem_post(philo->num_ate_sem);
+		return (0);
 	}
-	ft_message(info->philos + i - 1, "died");
-	ft_set_die(info);
+	sem_post(philo->num_ate_sem);
 	return (1);
 }
 

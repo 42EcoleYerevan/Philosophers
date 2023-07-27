@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 17:30:03 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:46:37 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_info
 	int				*childs;
 	unsigned long	timestamp;
 	struct s_philo	*philos;
-	pthread_t		checker;
 	sem_t			*forks;
 	sem_t			*die_sem;
 	sem_t			*print_sem;
@@ -53,6 +52,7 @@ typedef struct s_philo
 	int				last_eat_time;
 	struct s_info	*info;
 	pthread_t		thread;
+	pthread_t		checker;
 	sem_t			*num_ate_sem;
 	sem_t			*last_ate_sem;
 }	t_philo;
@@ -68,7 +68,7 @@ t_info			*ft_init_info(char **argv);
 t_philo			*ft_init_philos(t_info *info);
 
 // life philo
-void			ft_life_philo(void *philo);
+void			*ft_life_philo(void *philo);
 
 // life philo utils
 void			ft_take_forks(t_philo *philo);
@@ -86,7 +86,7 @@ void			ft_message(t_philo *philo, char *message);
 void			ft_usleep(int ms);
 
 // checker
-void			*ft_checker(void *info);
+void			*ft_checker(void *philo);
 int				ft_is_died(t_philo *philo);
 
 // checker utils

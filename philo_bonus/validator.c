@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:10:05 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 19:10:07 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:05:43 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,28 @@
 int		ft_atoi(char *str);
 char	*ft_strchr(char c, char *str);
 int		ft_number_validator(char *str);
+int		ft_negative_validator(char *str);
+int		ft_intmax_validator(char *str);
+int		ft_is_empty(char *str);
 
 int	is_valid_argv(int argc, char **argv)
 {
 	while (--argc > 0)
 	{
-		if (ft_number_validator(argv[argc]) == 1)
+		if (ft_is_empty(argv[argc]) || \
+			ft_number_validator(argv[argc]) == 1 || \
+			ft_negative_validator(argv[argc]) == 1 || \
+			ft_intmax_validator(argv[argc]) == 1)
 			return (1);
 	}
 	return (0);
 }
 
-int	ft_atoi(char *str)
+int	ft_is_empty(char *str)
 {
-	int	out;
-	int	i;
-
-	if (!str)
-		return (0);
-	out = 0;
-	i = 0;
-	while (str[i] && str[i] == ' ')
-		i++;
-	while (str[i])
-	{
-		out = out * 10 + (str[i] - '0');
-		i++;
-	}
-	return (out);
-}
-
-char	*ft_strchr(char c, char *str)
-{
-	if (!str)
-		return (NULL);
-	while (*str)
-	{
-		if (*str == c)
-			return (str);
-		str++;
-	}
-	return (NULL);
+	if (!str || !*str)
+		return (1);
+	return (0);
 }
 
 int	ft_number_validator(char *str)
@@ -69,5 +50,25 @@ int	ft_number_validator(char *str)
 			return (1);
 		str++;
 	}
+	return (0);
+}
+
+int	ft_negative_validator(char *str)
+{
+	while (*str && *str == ' ')
+		str++;
+	if (*str == '-')
+		return (1);
+	return (0);
+}
+
+int	ft_intmax_validator(char *str)
+{
+	int	num;
+
+	num = 0;
+	num = ft_atoi(str);
+	if (num == -1)
+		return (1);
 	return (0);
 }
