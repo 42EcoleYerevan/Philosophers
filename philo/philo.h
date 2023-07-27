@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 19:02:56 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:46:42 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ typedef struct s_philo
 	int				id;
 	int				num_ate;
 	int				last_eat_time;
+	int				died;
 	struct s_info	*info;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	num_ate_mutex;
 	pthread_mutex_t	last_ate_mutex;
+	pthread_mutex_t	die_mutex;
 }	t_philo;
 
 // validator

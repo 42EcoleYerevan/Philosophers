@@ -6,24 +6,13 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:07:30 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 19:09:19 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:09:21 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 unsigned long	ft_get_time(void);
-
-void	ft_print_info(t_info *info)
-{
-	printf("time_to_die: %d\n", info->time_to_die);
-	printf("time_to_sleep: %d\n", info->time_to_sleep);
-	printf("time_to_eat: %d\n", info->time_to_sleep);
-	printf("timestamp: %lu\n", info->timestamp);
-	printf("number_of_philosophers: %d\n", info->number_of_philosophers);
-	printf("number_of_times_each_philosopher_must_eat: %d\n", \
-			info->number_of_times_each_philosopher_must_eat);
-}
 
 unsigned long	ft_get_current_time(void)
 {
@@ -61,7 +50,8 @@ void	ft_usleep(int ms)
 {
 	unsigned long	start;
 
-	start = ft_get_current_time();
-	while (ft_get_current_time() - start < (unsigned long) ms)
+	start = ft_get_time();
+	usleep(ms * 950);
+	while (ft_get_time() - start < (unsigned long) ms)
 		usleep(10);
 }

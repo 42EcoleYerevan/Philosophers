@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:52:31 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 18:52:55 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:53:12 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,28 @@ int	ft_died_from_starvation(t_philo *philo)
 int	ft_eaten_enough(t_info *info)
 {
 	int	i;
+	int	status;
 
-	i = 0;
 	if (!info->number_of_times_each_philosopher_must_eat)
 		return (0);
+	i = 0;
+	status = 1;
 	while (i < info->number_of_philosophers)
 	{
-		ft_philo_mutex_lock(info->philos + i);
+		pthread_mutex_lock(&info->philos[i].num_ate_mutex);
+		pthread_mutex_lock(&info->philos[i].die_mutex);
 		if (info->philos[i].num_ate < \
 				info->number_of_times_each_philosopher_must_eat)
-		{
-			ft_philo_mutex_unlock(info->philos + i);
-			return (0);
-		}
-		ft_philo_mutex_unlock(info->philos + i);
+			status = 0;
+		else
+			info->philos[i].died = 1;
+		pthread_mutex_unlock(&info->philos[i].die_mutex);
+		pthread_mutex_unlock(&info->philos[i].num_ate_mutex);
 		i++;
 	}
-	ft_message(info->philos + i - 1, "died");
-	ft_set_die(info);
-	return (1);
+	if (status)
+		ft_set_die(info);
+	return (status);
 }
 
 void	ft_set_die(t_info *info)

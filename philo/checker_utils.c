@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:53:32 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 19:12:14 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:48:01 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ void	ft_philo_mutex_unlock(t_philo *philo)
 int	ft_is_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->die_mutex);
-	if (philo->info->die_status)
+	pthread_mutex_lock(&philo->die_mutex);
+	if (philo->info->die_status || philo->died)
 	{
 		ft_put_forks(philo);
+		pthread_mutex_unlock(&philo->die_mutex);
 		pthread_mutex_unlock(&philo->info->die_mutex);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->die_mutex);
 	pthread_mutex_unlock(&philo->info->die_mutex);
 	return (0);
 }

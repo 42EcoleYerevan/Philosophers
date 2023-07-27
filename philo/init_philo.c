@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:17 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 18:56:19 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:46:58 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ void	ft_init_philo(t_info *info, int id)
 	info->philos[id].left_fork = \
 		&info->forks[(id + 1) % info->number_of_philosophers];
 	info->philos[id].info = info;
+	info->philos[id].died = 0;
+	pthread_mutex_init(&info->philos[id].die_mutex, NULL);
 }
