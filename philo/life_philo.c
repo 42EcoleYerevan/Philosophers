@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:44 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/26 18:56:45 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:18:28 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*ft_life_philo(void *philo)
 	t_philo	*_philo;
 
 	_philo = (t_philo *)philo;
+	if (_philo->info->number_of_philosophers == 1)
+		usleep(_philo->info->time_to_die * 1000);
 	while (1)
 	{
 		if (ft_is_died(_philo))

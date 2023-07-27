@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:52:31 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 11:53:12 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:27:41 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	*ft_checker(void *info)
 		if (ft_died_from_starvation(_info->philos + i) || \
 			ft_eaten_enough(info))
 			return (NULL);
-		i++;
 		if (i == _info->number_of_philosophers - 1)
 			i = 0;
+		else
+			i++;
 	}
 	return (NULL);
 }
