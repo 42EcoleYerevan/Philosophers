@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:59:43 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 12:51:25 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:10:06 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_info	*info;
 
-	if (argc < 5)
+	if (argc < 5 || argc > 6)
 	{
 		printf("Error\n");
 		return (1);
