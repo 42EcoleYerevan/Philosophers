@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 11:46:42 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:36:28 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ typedef struct s_philo
 // validator
 int				is_valid_argv(int argc, char **argv);
 int				ft_atoi(char *str);
+char			*ft_strchr(char c, char *str);
+int				ft_number_validator(char *str);
+int				ft_negative_validator(char *str);
+int				ft_intmax_validator(char *str);
+int				ft_empty_validator(char *str);
+int				ft_zero_validator(char *str);
 
 //init info
 t_info			*ft_init_info(char **argv);
