@@ -6,46 +6,57 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:04:20 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 19:11:26 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:52:38 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
-void	ft_fork_philo(t_info *info);
-void	ft_init_threads(t_philo *philo);
+void	ft_run_process(t_info *info, int i);
+void	ft_killer(t_info *info);
 
 void	ft_run(t_info *info)
 {
-	ft_fork_philo(info);
+	int	i;
+	int status;
+
+	i = 0;
+	while (i < info->number_of_philosophers)
+	{
+		info->childs[i] = fork();
+		if (info->childs[i] == 0)
+		{
+			ft_run_process(info, i);
+			exit(0);
+		}
+		i++;
+	}
+	while (waitpid(-1, &status, 0) != -1)
+	{
+		if (status != 0)
+			ft_message(info->philos + (status / 256 - 1), DIED);
+		ft_killer(info);
+		exit(1);
+	}
 }
 
-void ft_fork_philo(t_info *info)
+void	ft_killer(t_info *info)
 {
 	int i;
 
 	i = 0;
 	while (i < info->number_of_philosophers)
 	{
-		info->childs[i] = fork();
-		if (info->childs[i] == -1)
-			exit(1);
-		if (info->childs[i] == 0)
-		{
-			ft_init_threads(info->philos + i);
-			exit(0);
-		}
+		kill(info->childs[i], SIGKILL);
 		i++;
 	}
-	while (wait(NULL) != -1);
-	/* puts("leha"); */
 }
 
-void	ft_init_threads(t_philo *philo)
+void	ft_run_process(t_info *info, int i)
 {
-	pthread_create(&philo->thread, NULL, &ft_life_philo, philo);
-	pthread_create(&philo->checker, NULL, &ft_checker, philo);
-	pthread_join(philo->thread, NULL);
-	pthread_join(philo->checker, NULL);
+	pthread_t checker;
+
+	pthread_create(&checker, NULL, ft_checker, info->philos + i);
+	ft_life_philo(info->philos + i);
+	pthread_join(checker, NULL);
 }

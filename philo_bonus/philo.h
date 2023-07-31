@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/27 18:46:37 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:40:34 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define PHILO_H
 
 # include <stdlib.h>
+#include <semaphore.h>
 # include <sys/time.h>
 # include <stdio.h>
 # include <pthread.h>
 # include <unistd.h>
-# include <semaphore.h>
+# include <signal.h>
 
 # define TAKE_FORKS 	"has taken a fork"
 # define EAT			"is eating"
@@ -26,8 +27,7 @@
 # define THINK			"is thinking"
 # define DIED			"died"
 
-typedef struct s_info
-{
+typedef struct s_info {
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
@@ -35,14 +35,13 @@ typedef struct s_info
 	int				number_of_times_each_philosopher_must_eat;
 	int				print;
 	int				die_status;
-	int				*childs;
-	unsigned long	timestamp;
-	struct s_philo	*philos;
+	pid_t			*childs;
 	sem_t			*forks;
 	sem_t			*die_sem;
 	sem_t			*print_sem;
-	sem_t			*time_to_eat_sem;
-	sem_t			*time_to_die_sem;
+	sem_t			*num_ate_sem;
+	sem_t			*last_eat_time_sem;
+	struct s_philo	*philos;
 }	t_info;
 
 typedef struct s_philo
@@ -51,10 +50,6 @@ typedef struct s_philo
 	int				num_ate;
 	int				last_eat_time;
 	struct s_info	*info;
-	pthread_t		thread;
-	pthread_t		checker;
-	sem_t			*num_ate_sem;
-	sem_t			*last_ate_sem;
 }	t_philo;
 
 // validator
@@ -65,7 +60,7 @@ int				ft_atoi(char *str);
 t_info			*ft_init_info(char **argv);
 
 // init philo
-t_philo			*ft_init_philos(t_info *info);
+int				ft_init_philo(t_info *info);
 
 // life philo
 void			*ft_life_philo(void *philo);
@@ -86,7 +81,7 @@ void			ft_message(t_philo *philo, char *message);
 void			ft_usleep(int ms);
 
 // checker
-void			*ft_checker(void *philo);
+void			*ft_checker(void *_philo);
 int				ft_is_died(t_philo *philo);
 
 // checker utils
