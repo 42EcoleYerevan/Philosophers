@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:04:20 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 18:34:34 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:44:13 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	ft_run_process(t_info *info, int i);
 void	ft_killer(t_info *info);
+void	ft_waiter(t_info *info);
+void	ft_runner(t_info *info);
 
 void	ft_run(t_info *info)
 {
+	ft_runner(info);
+	ft_waiter(info);
+}
+
+void	ft_runner(t_info *info)
+{
 	int	i;
-	int	status;
 
 	i = 0;
 	while (i < info->number_of_philosophers)
@@ -31,6 +38,12 @@ void	ft_run(t_info *info)
 		}
 		i++;
 	}
+}
+
+void	ft_waiter(t_info *info)
+{
+	int	status;
+
 	while (waitpid(-1, &status, 0) != -1)
 	{
 		if (status != 0)
