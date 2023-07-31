@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:52:31 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 17:51:22 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:33:14 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_set_die(t_info *info);
 
 void	*ft_checker(void *_philo)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)_philo;
 	while (1)

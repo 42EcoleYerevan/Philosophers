@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:04:20 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 17:52:38 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:34:34 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_killer(t_info *info);
 void	ft_run(t_info *info)
 {
 	int	i;
-	int status;
+	int	status;
 
 	i = 0;
 	while (i < info->number_of_philosophers)
@@ -42,7 +42,7 @@ void	ft_run(t_info *info)
 
 void	ft_killer(t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < info->number_of_philosophers)
@@ -54,7 +54,7 @@ void	ft_killer(t_info *info)
 
 void	ft_run_process(t_info *info, int i)
 {
-	pthread_t checker;
+	pthread_t	checker;
 
 	pthread_create(&checker, NULL, ft_checker, info->philos + i);
 	ft_life_philo(info->philos + i);

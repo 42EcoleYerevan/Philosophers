@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:54:13 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 17:35:45 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:33:52 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	ft_init_values(t_info *info, char **argv)
 static int	ft_init_sems(t_info *info)
 {
 	if (!info->number_of_philosophers)
-		return (1);;
+		return (1);
 	sem_unlink("die_sem");
 	sem_unlink("print_sem");
 	sem_unlink("last_eat_time_sem");
@@ -59,9 +59,10 @@ static int	ft_init_sems(t_info *info)
 	info->print_sem = sem_open("print_sem", O_CREAT, 0666, 1);
 	info->last_eat_time_sem = sem_open("last_eat_time_sem", O_CREAT, 0666, 1);
 	info->num_ate_sem = sem_open("num_ate_sem", O_CREAT, 0666, 1);
-	info->forks = sem_open("forks", O_CREAT, 0666, info->number_of_philosophers);
+	info->forks = sem_open("forks", O_CREAT, 0666, \
+			info->number_of_philosophers);
 	if (info->die_sem == SEM_FAILED || \
-		info->print_sem == SEM_FAILED|| \
+		info->print_sem == SEM_FAILED || \
 		info->last_eat_time_sem == SEM_FAILED || \
 		info->num_ate_sem == SEM_FAILED || \
 		info->forks == SEM_FAILED)

@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:17 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 13:23:35 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:34:06 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_init_philo(t_info *info)
 
 t_philo	*ft_malloc_philos(t_info *info)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)malloc(sizeof(t_philo) * \
 			info->number_of_philosophers);

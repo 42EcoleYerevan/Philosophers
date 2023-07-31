@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 18:30:03 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:34:16 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PHILO_H
 
 # include <stdlib.h>
-#include <semaphore.h>
+# include <semaphore.h>
 # include <sys/time.h>
 # include <stdio.h>
 # include <pthread.h>
