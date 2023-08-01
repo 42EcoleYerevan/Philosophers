@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:07:30 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/28 14:20:21 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:53:53 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,16 @@ void	ft_usleep(int ms)
 	usleep(ms * 950);
 	while (ft_get_time() - start < (unsigned long) ms)
 		usleep(10);
+}
+
+void	ft_close_sem(t_info *info)
+{
+	sem_close(info->die_sem);
+	sem_close(info->print_sem);
+	sem_close(info->num_ate_sem);
+	sem_close(info->last_eat_time_sem);
+	sem_unlink("die_sem");
+	sem_unlink("print_sem");
+	sem_unlink("num_ate_sem");
+	sem_unlink("last_eat_time_sem");
 }

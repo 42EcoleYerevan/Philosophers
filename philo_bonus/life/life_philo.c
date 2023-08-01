@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:44 by agladkov          #+#    #+#             */
-/*   Updated: 2023/08/01 15:13:33 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:14:31 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,10 @@ void	*ft_life_philo(void *philo)
 		usleep(_philo->info->time_to_die * 1000);
 	while (1)
 	{
-		if (ft_is_died(_philo))
-			return (NULL);
 		ft_take_forks(_philo);
-		if (ft_is_died(_philo))
-			return (NULL);
 		ft_eat(_philo);
-		if (ft_is_died(_philo))
-			return (NULL);
 		ft_put_forks(_philo);
-		if (ft_is_died(_philo))
-			return (NULL);
 		ft_sleep(_philo);
-		if (ft_is_died(_philo))
-			return (NULL);
 		ft_think(_philo);
 	}
 	return (NULL);

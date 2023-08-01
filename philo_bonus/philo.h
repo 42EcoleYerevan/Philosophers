@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/08/01 16:33:09 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:44:49 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void			ft_print_info(t_info *info);
 unsigned long	ft_get_current_time(void);
 void			ft_message(t_philo *philo, char *message);
 void			ft_usleep(int ms);
+void			ft_close_sem(t_info *info);
 
 // checker
 void			*ft_checker(void *_philo);
