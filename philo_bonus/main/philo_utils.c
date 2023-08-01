@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:04:20 by agladkov          #+#    #+#             */
-/*   Updated: 2023/08/01 12:06:14 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:32:27 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	ft_runner(t_info *info)
 	while (i < info->number_of_philosophers)
 	{
 		info->childs[i] = fork();
-		if (info->childs[i] == 0)
+		if (info->childs[i] == -1)
 		{
-			ft_run_process(info, i);
-			exit(0);
+			printf("Error (FORK)\n");
+			exit(1);
 		}
+		if (info->childs[i] == 0)
+			ft_run_process(info, i);
 		i++;
 	}
 }
@@ -63,13 +65,20 @@ void	ft_killer(t_info *info)
 		kill(info->childs[i], SIGKILL);
 		i++;
 	}
+	sem_close(info->die_sem);
+	sem_close(info->print_sem);
+	sem_close(info->num_ate_sem);
+	sem_close(info->last_eat_time_sem);
+	sem_unlink("die_sem");
+	sem_unlink("print_sem");
+	sem_unlink("num_ate_sem");
+	sem_unlink("last_eat_time_sem");
 }
 
 void	ft_run_process(t_info *info, int i)
 {
-	pthread_t	checker;
-
-	pthread_create(&checker, NULL, ft_checker, info->philos + i);
+	pthread_create(&info->philos[i].checker, NULL, ft_checker, info->philos + i);
 	ft_life_philo(info->philos + i);
-	pthread_join(checker, NULL);
+	pthread_join(info->philos[i].checker, NULL);
+	exit(0);
 }

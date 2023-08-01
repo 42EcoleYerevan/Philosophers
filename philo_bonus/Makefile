@@ -5,7 +5,7 @@ OBJS=$(SRCS:%.c=$(OBJS_DIR)%.o)
 HEADER=./philo.h
 HEADER_DIR=./
 CC=cc
-CFLAGS= -Wall -Wextra -Werror -I$(HEADER_DIR)
+CFLAGS= -Wall -Wextra -Werror -I$(HEADER_DIR) #-fsanitize=address -g
 LIBS= -lpthread
 
 all: $(NAME)

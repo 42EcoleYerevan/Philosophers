@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:44 by agladkov          #+#    #+#             */
-/*   Updated: 2023/08/01 13:30:30 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:13:33 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_life_philo(void *philo)
 
 	_philo = (t_philo *)philo;
 	if (_philo->info->number_of_philosophers == 1)
-		usleep(_philo->info->time_to_die * 1010);
+		usleep(_philo->info->time_to_die * 1000);
 	while (1)
 	{
 		if (ft_is_died(_philo))
@@ -46,11 +46,11 @@ void	*ft_life_philo(void *philo)
 
 void	ft_eat(t_philo *philo)
 {
-	sem_wait(philo->info->last_eat_time_sem);
 	sem_wait(philo->info->num_ate_sem);
 	philo->num_ate++;
-	philo->last_eat_time = (int) ft_get_current_time();
 	sem_post(philo->info->num_ate_sem);
+	sem_wait(philo->info->last_eat_time_sem);
+	philo->last_eat_time = (int) ft_get_current_time();
 	sem_post(philo->info->last_eat_time_sem);
 	ft_message(philo, EAT);
 	ft_usleep(philo->info->time_to_eat);

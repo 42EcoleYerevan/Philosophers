@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:02:53 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 18:34:16 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:33:09 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_philo
 	int				id;
 	int				num_ate;
 	int				last_eat_time;
+	pthread_t		checker;
 	struct s_info	*info;
 }	t_philo;
 

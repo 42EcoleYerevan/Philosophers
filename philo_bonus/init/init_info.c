@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:54:13 by agladkov          #+#    #+#             */
-/*   Updated: 2023/07/31 18:33:52 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:10:50 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,19 @@ static int	ft_init_values(t_info *info, char **argv)
 			!info->time_to_die || \
 			!info->time_to_eat || \
 			!info->time_to_sleep)
+	{
+		printf("Error (atoi)\n");
 		return (1);
+	}
 	info->print = 1;
 	info->die_status = 0;
+	info->childs = (pid_t *)malloc(sizeof(pid_t) * \
+			info->number_of_philosophers);
+	if (!info->childs)
+	{
+		printf("Error (malloc childs)\n");
+		return (1);
+	}
 	return (0);
 }
 
@@ -61,11 +71,13 @@ static int	ft_init_sems(t_info *info)
 	info->num_ate_sem = sem_open("num_ate_sem", O_CREAT, 0666, 1);
 	info->forks = sem_open("forks", O_CREAT, 0666, \
 			info->number_of_philosophers);
-	if (info->die_sem == SEM_FAILED || \
-		info->print_sem == SEM_FAILED || \
+	if (info->print_sem == SEM_FAILED || \
 		info->last_eat_time_sem == SEM_FAILED || \
 		info->num_ate_sem == SEM_FAILED || \
 		info->forks == SEM_FAILED)
+	{
+		printf("Error (sem_open)");
 		return (1);
+	}
 	return (0);
 }
