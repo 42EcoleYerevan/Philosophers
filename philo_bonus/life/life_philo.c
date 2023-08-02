@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:44 by agladkov          #+#    #+#             */
-/*   Updated: 2023/08/01 20:14:31 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:26:47 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	*ft_life_philo(void *philo)
 
 void	ft_eat(t_philo *philo)
 {
-	sem_wait(philo->info->num_ate_sem);
-	philo->num_ate++;
-	sem_post(philo->info->num_ate_sem);
 	sem_wait(philo->info->last_eat_time_sem);
 	philo->last_eat_time = (int) ft_get_current_time();
 	sem_post(philo->info->last_eat_time_sem);
+	sem_wait(philo->info->num_ate_sem);
+	philo->num_ate++;
 	ft_message(philo, EAT);
+	sem_post(philo->info->num_ate_sem);
 	ft_usleep(philo->info->time_to_eat);
 }
 
