@@ -6,7 +6,7 @@
 /*   By: agladkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 18:56:44 by agladkov          #+#    #+#             */
-/*   Updated: 2023/08/01 13:26:44 by agladkov         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:10:33 by agladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_life_philo(void *philo)
 
 	_philo = (t_philo *)philo;
 	if (_philo->info->number_of_philosophers == 1)
-		usleep(_philo->info->time_to_die * 1010);
+		ft_usleep(_philo->info->time_to_die + 2);
 	while (1)
 	{
 		if (ft_is_died(_philo))
@@ -47,11 +47,11 @@ void	*ft_life_philo(void *philo)
 void	ft_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->last_ate_mutex);
+	philo->last_eat_time = (int) ft_get_current_time();
+	pthread_mutex_unlock(&philo->last_ate_mutex);
 	pthread_mutex_lock(&philo->num_ate_mutex);
 	philo->num_ate++;
-	philo->last_eat_time = (int) ft_get_current_time();
 	pthread_mutex_unlock(&philo->num_ate_mutex);
-	pthread_mutex_unlock(&philo->last_ate_mutex);
 	ft_message(philo, EAT);
 	ft_usleep(philo->info->time_to_eat);
 }
